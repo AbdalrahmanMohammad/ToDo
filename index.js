@@ -9,6 +9,9 @@ app.set('view engine', 'ejs');
 // listen for requests
 app.listen(3000);
 
+// static middleware
+app.use(express.static('public'));
+
 // main route
 app.get('/', (req, res) => {
     res.render('index',{title:"To-Do"});
