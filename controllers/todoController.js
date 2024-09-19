@@ -8,7 +8,30 @@ let todos = [
 ];
 
 const getAllTodos = (req, res) => {
-    res.status(200).json(todos);
+    // Extract page and limit from query parameters
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10000000;
+
+    // Calculate start and end index for pagination
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    // Get paginated todos
+    const paginatedTodos = todos.slice(startIndex, endIndex);
+
+    // Metadata for pagination
+    const totalTodos = todos.length;
+    const totalPages = Math.ceil(totalTodos / limit);
+
+    res.status(200).json({
+        todos: paginatedTodos,
+        meta: {
+            totalTodos,
+            totalPages,
+            currentPage: page,
+            limit
+        }
+    });
 };
 
 const getTodoById = (req, res) => {
