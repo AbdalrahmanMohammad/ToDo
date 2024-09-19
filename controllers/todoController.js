@@ -88,6 +88,7 @@ const validateUpdating = () => [
 ];
 
 module.exports = {
+    todos,
     getAllTodos,
     getTodoById,
     createTodo,

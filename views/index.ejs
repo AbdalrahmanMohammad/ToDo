@@ -6,30 +6,16 @@
                 <div class="task-cont">
                     <h1>YOUR TASKS</h1>
                     <ul>
-                        <li>
-                            <div class="title">the first task</div>
-                            <div class="desc">this is the description of the first task</div>
-                            <div class="created">created at: <span>---</span></div>
-                            <div class="updated">updated at: <span>---</span></div>
-                            <button class="delete-task-btn">delete</button>
-                            <button class="edit-task-btn">edit</button>
+                        <% todos.forEach(todo => { %>
+                        <li class="<%= todo.completed ? 'completed' : '' %>">
+                            <div class="title"><%= todo.title %></div>
+                            <div class="desc"><%= todo.description %></div>
+                            <div class="created">created at: <span><%= todo.createdAt%></span></div>
+                            <div class="updated">updated at: <span><%= todo.updatedAt %></span></div>
+                            <button class="delete-task-btn" data-id="<%= todo.id %>">delete</button>
+                            <button class="edit-task-btn" data-id="<%= todo.id %>">edit</button>
                         </li>
-                        <li class="completed">
-                            <div class="title">the second task</div>
-                            <div class="desc">just some random description</div>
-                            <div class="created">created at: <span>---</span></div>
-                            <div class="updated">updated at: <span>---</span></div>
-                            <button class="delete-task-btn">delete</button>
-                            <button class="edit-task-btn">edit</button>
-                        </li>
-                        <li>
-                            <div class="title">the third task</div>
-                            <div class="desc">thid task is for the task list</div>
-                            <div class="created">created at: <span>---</span></div>
-                            <div class="updated">updated at: <span>---</span></div>
-                            <button class="delete-task-btn">delete</button>
-                            <button class="edit-task-btn">edit</button>
-                        </li>
+                        <% }) %>
                     </ul>
                     <button>Add Task</button>
                 </div>

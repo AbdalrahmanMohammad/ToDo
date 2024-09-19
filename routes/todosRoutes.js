@@ -12,4 +12,7 @@ router.put('/:id', todosController.validateUpdating(), todosController.updateTod
 
 router.delete('/:id', todosController.deleteTodo);
 
-module.exports = router;
+module.exports = {
+    router,
+    todos: todosController.todos
+};
