@@ -3,12 +3,15 @@ const express = require('express');
 // express app
 const app = express();
 
+// register ejs view engine
+app.set('view engine', 'ejs');
+
 // listen for requests
 app.listen(3000);
 
 // main route
 app.get('/', (req, res) => {
-    res.sendFile('./views/index.html', { root: __dirname });
+    res.render('index',{title:"To-Do"});
 });
 
 // redirect /todo, /main to / route
@@ -18,5 +21,5 @@ app.get(['/todo', '/main'], (req, res) => {
 
 // show 404 page for any other route
 app.use((req, res) => {
-    res.status(404).sendFile('./views/404.html', { root: __dirname });
+    res.status(404).render('404',{title:"404"});
 })
