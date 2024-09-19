@@ -41,12 +41,18 @@ app.get('/todos', (req, res) => {
     res.status(200).json(todos);
 });
 
-app.post('/todos', (req, res) => {
-    const { title, description = "", completed = false } = req.body;// completed default as flase, description as null and title is required
+app.post('/todos', [
+    body('title').isString().withMessage('Title must be a string').notEmpty().withMessage('Title is required'),
+    body('description').optional().isString().withMessage('Description must be a string'),
+    body('completed').optional().isBoolean().withMessage('Completed must be a boolean')
+], (req, res) => {
 
-    if (!title) {
-        return res.status(400).json({ error: 'Title is required' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
     }
+
+    const { title, description = "", completed = false } = req.body;
 
     const newTodo = {
         id: uuidv4(),
@@ -80,7 +86,17 @@ app.delete('/todos/:id', (req, res) => {
     }
 });
 
-app.put('/todos/:id', (req, res) => {
+app.put('/todos/:id', [
+    body('title').optional().isString().withMessage('Title must be a string').notEmpty().withMessage('title cannot be empty'),
+    body('description').optional().isString().withMessage('Description must be a string'),
+    body('completed').optional().isBoolean().withMessage('Completed must be a boolean')
+], (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { title, description, completed } = req.body;
 
     const todo = todos.find(t => t.id == req.params.id);
