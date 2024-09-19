@@ -1,7 +1,98 @@
 <%-include('../partials/head.ejs')%>
-<body>
-    <%-include('../partials/header.ejs')%>
 
-    <h1>To-Do list</h1>
-</body>
-</html>
+    <body>
+        <%-include('../partials/header.ejs')%>
+            <main>
+                <div class="task-cont">
+                    <h1>YOUR TASKS</h1>
+                    <ul>
+                        <li>
+                            <div class="title">the first task</div>
+                            <div class="desc">this is the description of the first task</div>
+                            <div class="created">created at: <span>---</span></div>
+                            <div class="updated">updated at: <span>---</span></div>
+                            <button class="delete-task-btn">delete</button>
+                            <button class="edit-task-btn">edit</button>
+                        </li>
+                        <li class="completed">
+                            <div class="title">the second task</div>
+                            <div class="desc">just some random description</div>
+                            <div class="created">created at: <span>---</span></div>
+                            <div class="updated">updated at: <span>---</span></div>
+                            <button class="delete-task-btn">delete</button>
+                            <button class="edit-task-btn">edit</button>
+                        </li>
+                        <li>
+                            <div class="title">the third task</div>
+                            <div class="desc">thid task is for the task list</div>
+                            <div class="created">created at: <span>---</span></div>
+                            <div class="updated">updated at: <span>---</span></div>
+                            <button class="delete-task-btn">delete</button>
+                            <button class="edit-task-btn">edit</button>
+                        </li>
+                    </ul>
+                    <button>Add Task</button>
+                </div>
+
+                <div class="pop-up add-task">
+                    <div class="wrapper">
+                        <form action="">
+                            <div class="close">X</div>
+                            <h2>Add a new task</h2>
+                            <input type="text" name="title" placeholder="title">
+                            <input type="text" name="description" placeholder="description">
+                            <button class="add-task-button">Add</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="pop-up edit-task">
+                    <div class="wrapper">
+                        <form action="">
+                            <div class="close">X</div>
+                            <h2>edit the task</h2>
+                            <input type="text" name="title" placeholder="title">
+                            <input type="text" name="description" placeholder="description">
+                            <label for="completed">
+                                <input type="checkbox" id="completed" name="completed">
+                                Completed
+                            </label>
+                            <button class="add-task-button">update</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+    </body>
+
+    <script>
+        let show_addtask_button = document.querySelector('ul+button');
+        let close_addtask_button = document.querySelector('.add-task .close');
+        let add_task_div = document.querySelector('.add-task');
+
+        show_addtask_button.addEventListener("click", toggleAddTask);
+        close_addtask_button.addEventListener("click", toggleAddTask);
+        function toggleAddTask() {
+            if (add_task_div.style.display == "block")
+                add_task_div.style.display = "none";
+            else {
+                add_task_div.style.display = "block";
+            }
+        }
+
+        let unorderedList = document.querySelector('ul');
+        let close_edittask_button = document.querySelector('.edit-task .close');
+        let edit_task_div = document.querySelector('.edit-task');
+
+        unorderedList.addEventListener("click", toggleEditTask);
+        close_edittask_button.addEventListener("click", toggleEditTask);
+        function toggleEditTask(e) {
+            if (e.target.classList.contains("edit-task-btn")||e.target==close_edittask_button) {
+                if (edit_task_div.style.display == "block")
+                    edit_task_div.style.display = "none";
+                else {
+                    edit_task_div.style.display = "block";
+                }
+            }
+        }
+    </script>
+
+    </html>
